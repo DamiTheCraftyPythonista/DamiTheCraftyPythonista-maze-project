@@ -6,22 +6,36 @@ import Toolbar from "./Toolbar.js"
 
 const GRID_WIDTH = 48;
 const GRID_HEIGHT = 21;
-const DEF_START = {row: 11, col: 11};
+const DEFAULT_START_ROW = 11;
+const DEFAULT_START_COL = 11;
+const DEFAULT_END_ROW = 11;
+const DEFAULT_END_COL = 37; 
+
+
+const handleCellClick = (row, col) => {
+  console.log(`Clicked on cell (${row}, ${col})`);
+
+};
 
 
 function resetGrid(gridRows, gridColumns) {
-    const cells = [];
+    
+  const cells = [];
 
     for (let row = 0; row < gridRows; row++) {
+      const rowArray = []
       for (let col = 0; col < gridColumns; col++) {
         const cellKey = `${row}-${col}`;
-        cells.push(
+        rowArray.push(
           <div 
               key={cellKey} 
-              className="cell">
+              className="cell"
+              onClick={() => handleCellClick(row, col)}>
           </div>
           );
       }
+      
+      cells.push(rowArray)
     }
   
     return (cells);
@@ -30,8 +44,8 @@ function resetGrid(gridRows, gridColumns) {
 
   function useMazeState() {
     const [grid, setGrid] = useState(() => resetGrid(GRID_HEIGHT, GRID_WIDTH));
-    const [startPosition, setStartPosition] = useState(null); 
-    const [endPosition, setEndPosition] = useState(null); 
+    const [startPosition, setStartPosition] = useState([DEFAULT_START_ROW, DEFAULT_START_COL]); 
+    const [endPosition, setEndPosition] = useState([DEFAULT_END_ROW, DEFAULT_END_COL]); 
   
     const updateGrid = (newGrid) => {
       setGrid(newGrid);

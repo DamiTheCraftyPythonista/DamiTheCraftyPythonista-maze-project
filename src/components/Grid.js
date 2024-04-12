@@ -5,7 +5,7 @@ import "../index.css";
 export default function Grid(props) {
   return (
     <div className="grid">
-      {props.cells} {/* Render the cells array */}
+      {props.cells}
     </div>
   );
 }
