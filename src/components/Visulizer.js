@@ -6,73 +6,65 @@ import Toolbar from "./Toolbar.js"
 
 const GRID_WIDTH = 48;
 const GRID_HEIGHT = 21;
-const DEFAULT_START_ROW = 11;
-const DEFAULT_START_COL = 11;
+const DEFAULT_START_ROW = 10;
+const DEFAULT_START_COL = 10;
 const DEFAULT_END_ROW = 11;
 const DEFAULT_END_COL = 37; 
 
 
-const handleCellClick = (row, col) => {
-  console.log(`Clicked on cell (${row}, ${col})`);
-
+const createCell = (row, col) => {
+  return {
+    row,
+    col,
+    isStart: row === DEFAULT_START_ROW && col === DEFAULT_START_COL,
+    isEnd: row === DEFAULT_END_ROW && col === DEFAULT_END_COL,
+  };
 };
 
 
-function resetGrid(gridRows, gridColumns) {
-    
+const resetGrid = (gridRows, gridColumns) => { 
   const cells = [];
 
     for (let row = 0; row < gridRows; row++) {
       const rowArray = []
       for (let col = 0; col < gridColumns; col++) {
-        const cellKey = `${row}-${col}`;
-        rowArray.push(
-          <div 
-              key={cellKey} 
-              className="cell"
-              onClick={() => handleCellClick(row, col)}>
-          </div>
-          );
+        const cell = createCell(row, col);
+        rowArray.push(cell);
       }
-      
-      cells.push(rowArray)
+      cells.push(rowArray);
     }
   
-    return (cells);
+    return cells;
   };
-  
 
-  function useMazeState() {
+
+  const useMazeState = () => {
     const [grid, setGrid] = useState(() => resetGrid(GRID_HEIGHT, GRID_WIDTH));
-    const [startPosition, setStartPosition] = useState([DEFAULT_START_ROW, DEFAULT_START_COL]); 
-    const [endPosition, setEndPosition] = useState([DEFAULT_END_ROW, DEFAULT_END_COL]); 
-  
-    const updateGrid = (newGrid) => {
-      setGrid(newGrid);
-    };
-  
+    //   const [startPosition, setStartPosition] = useState([DEFAULT_START_ROW, DEFAULT_START_COL]); 
+    //   const [endPosition, setEndPosition] = useState([DEFAULT_END_ROW, DEFAULT_END_COL]); 
+
     return {
       grid,
-      startPosition,
-      endPosition,
-      updateGrid,
-      setStartPosition,
-      setEndPosition,
+      updateGrid: setGrid,
+        //     startPosition,
+        //     endPosition,
     };
-  }
+  };
 
 
 function Visualizer() {
 
-    const { grid, startPosition, endPosition, updateGrid, setStartPosition, setEndPosition } = useMazeState();
+    const { grid, updateGrid } = useMazeState();
 
-    return(
+  return (
     <div>
-        <Toolbar />
-        <Grid cells={grid}/>
-        <Footer />
+      <Toolbar />
+      <Grid 
+        cells={grid} 
+      />
+      <Footer />
     </div>
-    )
+  );
 }
 
 export default Visualizer

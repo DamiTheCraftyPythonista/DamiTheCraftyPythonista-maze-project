@@ -2,31 +2,23 @@ import React from "react";
 import "../index.css";
 
 
-export default function Grid(props) {
+const Grid = ({ cells }) => {
   return (
     <div className="grid">
-      {props.cells}
+      {cells.map((rowArray, rowIndex) => (
+        <div key={rowIndex} className="row">
+          {rowArray.map((cell, colIndex) => (
+            <div
+              key={`${cell.row}-${cell.col}`}
+              className={`cell ${cell.isStart ? 'starting-cell' : ''} ${cell.isEnd ? 'target-cell' : ''}`}
+            >
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
-}
+};
 
-//   const cells = [];
 
-//   for (let row = 0; row < props.numRows; row++) {
-//     for (let col = 0; col < props.numCols; col++) {
-//       const cellKey = `${row}-${col}`;
-//       cells.push(
-//         <div 
-//             key={cellKey} 
-//             className="cell">
-//         </div>
-//         );
-//     }
-//   }
-
-//   return (
-//     <div className="grid">
-//       {cells}
-//     </div>
-//   );
-// };
+export default Grid;
