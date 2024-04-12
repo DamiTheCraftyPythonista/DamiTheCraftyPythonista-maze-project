@@ -4,7 +4,7 @@ import "../index.css"
 export default function Toolbar() {
     return (
         <div className="toolbar">
-            <h1>Maze project</h1>
+            <p>Magnificent toolbar</p>
         </div>
     )
 }
