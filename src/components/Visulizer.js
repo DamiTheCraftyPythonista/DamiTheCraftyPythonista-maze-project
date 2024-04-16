@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Grid from "./Grid.js"
 import Footer from "./Footer.js"
 import Toolbar from "./Toolbar.js"
+import "../index.css";
 
 
 // const GRID_WIDTH = 48;
@@ -23,9 +24,9 @@ function initializeGrid () {
           row, 
           col, 
           isStart: row === DEFAULT_START_ROW && col === DEFAULT_START_COL,
-          isEnd: row === DEFAULT_END_ROW && col === DEFAULT_END_COL,
+          // isEnd: row === DEFAULT_END_ROW && col === DEFAULT_END_COL,
           startEditActivated: false,
-          clickHandler: null,
+          mouseDownHandler: null,
         };
         rowArray.push(cell);
       }
@@ -39,27 +40,44 @@ function initializeGrid () {
 function Visualizer() {
 
   const [grid, setGrid] = useState(() => initializeGrid());
-  const [startPosition, setStartPosition] = useState([DEFAULT_START_ROW, DEFAULT_START_COL]); 
-  const [startClicked, setStartClicked] = useState(false)
+  const [startPosition, setStartPosition] = useState({row: DEFAULT_START_ROW, col: DEFAULT_START_COL}); 
 
 
-  // function regenerateGrid () {
-  //     const updatedGrid = grid.map((row) =>
-  //         row.map((node) => {
-  //             if (node.row === startRow && node.col === startCol) {
-  //                 return { ...node, isStart: true };
-  //             }
-  //             return node;
-  //         })
-  //     );
-  //     setGrid(updatedGrid);
-  // };
+  function regenerateGrid(inputObject) {
+    const updatedGrid = grid.map((row) =>
+          row.map((node) => {
+              if (node.row === startPosition.row && node.col === startPosition.col) {
+                  return { 
+                    ...node, 
+                    isStart: true, 
+                    // mouseDownHandler: handleStartMousedDown, 
+                    ...inputObject, 
 
-  
-  function handleStartClicked () {
-    setStartClicked(true)
-    // regenerateGrid()
-  }
+                  };
+              } else {
+                return ({
+                  ...node, 
+                  isStart: false, 
+                  ...inputObject,
+                })
+              }
+          })
+      );
+      setGrid([...updatedGrid]);
+  };
+
+
+  useEffect(() => {
+    regenerateGrid()
+  }, [startPosition])
+
+
+  // function handleStartMousedDown() {
+  //   console.log('check')
+  //   regenerateGrid(
+  //     {startEditActivated: true}
+  //   )
+  // }
 
 
   return (

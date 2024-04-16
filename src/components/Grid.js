@@ -1,21 +1,22 @@
 import React from "react";
 import "../index.css";
+import Node from "./Node"
 
 
-const Grid = ({ cells }) => {
+function Grid(props) {
 
   return (
     <div className="grid">
-      {cells.map((rowArray, rowIndex) => (
-        <div key={rowIndex} className="row">
-          {rowArray.map((cell, colIndex) => (
-            <div
+      {props.cells.map((rowArray, rowIndex) => (
+        <div key={rowIndex} className='row'>
+          {rowArray.map((cell) => (
+            <Node 
               key={`${cell.row}-${cell.col}`}
-              className={`cell ${cell.isStart ? 'starting-cell' : ''} ${cell.isEnd ? 'target-cell' : ''}`}
-              onClick={cell.clickHandler}
-              // onMouseDown={cell.startEditActivated ? (() => {console.log(`${cell.row}-${cell.col}`)}) : null}
-            >
-            </div>
+              id={`${cell.row}-${cell.col}`}
+              isStart={cell.isStart ? true : false}
+              mouseDownHandler={cell.mouseDownHandler}
+              startEditActivated={cell.startEditActivated}
+            />
           ))}
         </div>
       ))}
