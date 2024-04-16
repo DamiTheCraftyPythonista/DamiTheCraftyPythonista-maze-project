@@ -50,7 +50,7 @@ function Visualizer() {
                   return { 
                     ...node, 
                     isStart: true, 
-                    // mouseDownHandler: handleStartMousedDown, 
+                    mouseDownHandler: handleStartMousedDown, 
                     ...inputObject, 
 
                   };
@@ -72,12 +72,12 @@ function Visualizer() {
   }, [startPosition])
 
 
-  // function handleStartMousedDown() {
-  //   console.log('check')
-  //   regenerateGrid(
-  //     {startEditActivated: true}
-  //   )
-  // }
+  function handleStartMousedDown() {
+    console.log('check')
+    regenerateGrid(
+      {startEditActivated: true}
+    )
+  }
 
 
   return (

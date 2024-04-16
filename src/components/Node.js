@@ -17,16 +17,16 @@ export default function Node(props) {
     <div
       key={props.id}
       className={`cell 
-      ${props.isStart ? 'starting-cell' : ''} `}
-    //   ${isHovered && props.startEditActivated ? 'start-activated-cell' : ''}`}
+      ${props.isStart ? 'starting-cell' : ''}
+      ${isHovered && props.startEditActivated ? 'start-activated-cell' : ''}`}
 
-    //   onMouseDown={props.mouseDownHandler}
-    //   onMouseOver={handleMouseOver}
-    //   onMouseOut={handleMouseOut}
-    //   onMouseUp={
-    //     handleMouseOut
-    //     //function passed from parent which takes the nodes row and col and uses them as inputs to change startPosition in parent
-    //   }
+      onMouseDown={props.mouseDownHandler}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      onMouseUp={
+        handleMouseOut
+        //function passed from parent which takes the nodes row and col and uses them as inputs to change startPosition in parent
+      }
     >
     </div>
   );
