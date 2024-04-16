@@ -26,7 +26,8 @@ function initializeGrid () {
           isStart: row === DEFAULT_START_ROW && col === DEFAULT_START_COL,
           // isEnd: row === DEFAULT_END_ROW && col === DEFAULT_END_COL,
           startEditActivated: false,
-          mouseDownHandler: null,
+          mouseDownHandler: () => {},
+          mouseUpHandler: () => {}, 
         };
         rowArray.push(cell);
       }
@@ -50,7 +51,7 @@ function Visualizer() {
                   return { 
                     ...node, 
                     isStart: true, 
-                    mouseDownHandler: handleStartMousedDown, 
+                    mouseDownHandler: handleStartMouseDown, 
                     ...inputObject, 
 
                   };
@@ -68,15 +69,23 @@ function Visualizer() {
 
 
   useEffect(() => {
-    regenerateGrid()
+    regenerateGrid({
+      startEditActivated: false, 
+      mouseUpHandler: () => {},
+      })
   }, [startPosition])
 
 
-  function handleStartMousedDown() {
-    console.log('check')
+  function handleStartMouseDown() {
     regenerateGrid(
-      {startEditActivated: true}
+      {startEditActivated: true, 
+      mouseUpHandler: handleStartMouseUp,
+      }
     )
+  }
+
+  function handleStartMouseUp(newStartRow, newStartCol) {
+    setStartPosition({row: newStartRow, col: newStartCol})
   }
 
 

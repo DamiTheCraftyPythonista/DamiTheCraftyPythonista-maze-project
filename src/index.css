@@ -40,10 +40,11 @@ background-color: antiquewhite;
 border: 1px solid #000000; 
 }
 
-/* .start-activated-cell {
+.start-activated-cell {
   background-color: green;
-  opacity: 0.2
-} */
+  transition: background-color 0.3s ease;
+  opacity: 0.2;
+}
 
 .starting-cell {
   background-color: green;

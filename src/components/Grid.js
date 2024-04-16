@@ -12,9 +12,12 @@ function Grid(props) {
           {rowArray.map((cell) => (
             <Node 
               key={`${cell.row}-${cell.col}`}
-              id={`${cell.row}-${cell.col}`}
+              row={cell.row}
+              col={cell.col}
+              // id={`${cell.row}-${cell.col}`}
               isStart={cell.isStart ? true : false}
               mouseDownHandler={cell.mouseDownHandler}
+              mouseUpHandler={cell.mouseUpHandler}
               startEditActivated={cell.startEditActivated}
             />
           ))}

@@ -13,6 +13,14 @@ export default function Node(props) {
     setIsHovered(false);
   };
 
+  const handleMouseUp = () => {
+    if (props.startEditActivated && typeof props.mouseUpHandler === 'function') {
+      props.mouseUpHandler(props.row, props.col);
+    }
+    setIsHovered(false);
+  };
+
+
   return (
     <div
       key={props.id}
@@ -23,10 +31,10 @@ export default function Node(props) {
       onMouseDown={props.mouseDownHandler}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      onMouseUp={
-        handleMouseOut
-        //function passed from parent which takes the nodes row and col and uses them as inputs to change startPosition in parent
-      }
+      onMouseUp={handleMouseUp}
+
+      style={{ userSelect: 'none' }}
+
     >
     </div>
   );
