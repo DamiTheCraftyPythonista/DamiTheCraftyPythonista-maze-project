@@ -50,7 +50,13 @@ border: 1px solid #000000;
   background-color: green;
 }
 
-.target {
+.target-activated-cell {
+  background-color: red;
+  transition: background-color 0.3s ease;
+  opacity: 0.2;
+}
+
+.target-cell {
   background-color: red;
 }
 

@@ -9,8 +9,8 @@ import "../index.css";
 // const GRID_HEIGHT = 21;
 const DEFAULT_START_ROW = 10;
 const DEFAULT_START_COL = 10;
-const DEFAULT_END_ROW = 11;
-const DEFAULT_END_COL = 37; 
+const DEFAULT_TARGET_ROW = 10;
+const DEFAULT_TARGET_COL = 37; 
 
 
 
@@ -24,8 +24,9 @@ function initializeGrid () {
           row, 
           col, 
           isStart: row === DEFAULT_START_ROW && col === DEFAULT_START_COL,
-          // isEnd: row === DEFAULT_END_ROW && col === DEFAULT_END_COL,
+          isTarget: row === DEFAULT_TARGET_ROW && col === DEFAULT_TARGET_COL,
           startEditActivated: false,
+          targetEditActivated: false, 
           mouseDownHandler: () => {},
           mouseUpHandler: () => {}, 
         };
@@ -42,7 +43,10 @@ function Visualizer() {
 
   const [grid, setGrid] = useState(() => initializeGrid());
   const [startPosition, setStartPosition] = useState({row: DEFAULT_START_ROW, col: DEFAULT_START_COL}); 
+  const [targetPosition, setTargetPosition] = useState({row: DEFAULT_TARGET_ROW, col: DEFAULT_TARGET_COL}); 
 
+
+  //grid updating
 
   function regenerateGrid(inputObject) {
     const updatedGrid = grid.map((row) =>
@@ -53,12 +57,20 @@ function Visualizer() {
                     isStart: true, 
                     mouseDownHandler: handleStartMouseDown, 
                     ...inputObject, 
-
+                  };
+              } else if (node.row === targetPosition.row && node.col === targetPosition.col) {
+                  return { 
+                    ...node, 
+                    isTarget: true, 
+                    mouseDownHandler: handleTargetMouseDown, 
+                    ...inputObject, 
                   };
               } else {
                 return ({
                   ...node, 
                   isStart: false, 
+                  isTarget: false, 
+                  mouseDownHandler: () => {}, 
                   ...inputObject,
                 })
               }
@@ -76,6 +88,16 @@ function Visualizer() {
   }, [startPosition])
 
 
+  useEffect(() => {
+    regenerateGrid({
+      targetEditActivated: false, 
+      mouseUpHandler: () => {},
+      })
+  }, [targetPosition])
+
+
+  //Start and target nodes drag and drop
+
   function handleStartMouseDown() {
     regenerateGrid(
       {startEditActivated: true, 
@@ -86,8 +108,29 @@ function Visualizer() {
 
   function handleStartMouseUp(newStartRow, newStartCol) {
     setStartPosition({row: newStartRow, col: newStartCol})
+    regenerateGrid(
+    {startEditActivated: false}
+    )
   }
 
+
+  function handleTargetMouseDown() {
+    regenerateGrid(
+      {targetEditActivated: true, 
+      mouseUpHandler: handleTargetMouseUp,
+      }
+    )
+  }
+
+  function handleTargetMouseUp(newTargetRow, newTargetCol) {
+    setTargetPosition({row: newTargetRow, col: newTargetCol})
+    regenerateGrid(
+      {targetEditActivated: false}
+    )
+  }
+
+
+  //App
 
   return (
     <div>

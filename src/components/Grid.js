@@ -16,9 +16,11 @@ function Grid(props) {
               col={cell.col}
               // id={`${cell.row}-${cell.col}`}
               isStart={cell.isStart ? true : false}
+              isTarget={cell.isTarget ? true : false}
               mouseDownHandler={cell.mouseDownHandler}
               mouseUpHandler={cell.mouseUpHandler}
               startEditActivated={cell.startEditActivated}
+              targetEditActivated={cell.targetEditActivated}
             />
           ))}
         </div>

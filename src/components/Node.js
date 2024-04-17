@@ -15,7 +15,9 @@ export default function Node(props) {
 
   const handleMouseUp = () => {
     if (props.startEditActivated && typeof props.mouseUpHandler === 'function') {
-      props.mouseUpHandler(props.row, props.col);
+      props.mouseUpHandler(props.row, props.col)
+    } else if (props.targetEditActivated && typeof props.mouseUpHandler === 'function') {
+      props.mouseUpHandler(props.row, props.col)
     }
     setIsHovered(false);
   };
@@ -26,15 +28,15 @@ export default function Node(props) {
       key={props.id}
       className={`cell 
       ${props.isStart ? 'starting-cell' : ''}
-      ${isHovered && props.startEditActivated ? 'start-activated-cell' : ''}`}
-
+      ${props.isTarget ? 'target-cell' : ''}
+      ${isHovered && props.startEditActivated ? 'start-activated-cell' : ''}
+      ${isHovered && props.targetEditActivated ? 'target-activated-cell' : ''}`}
       onMouseDown={props.mouseDownHandler}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       onMouseUp={handleMouseUp}
 
       style={{ userSelect: 'none' }}
-
     >
     </div>
   );
