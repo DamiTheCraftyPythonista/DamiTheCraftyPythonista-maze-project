@@ -87,18 +87,11 @@ function Visualizer() {
 
   useEffect(() => {
     regenerateGrid({
+      targetEditActivated: false, 
       startEditActivated: false, 
       mouseUpHandler: () => {},
       })
-  }, [startPosition])
-
-
-  useEffect(() => {
-    regenerateGrid({
-      targetEditActivated: false, 
-      mouseUpHandler: () => {},
-      })
-  }, [targetPosition])
+  }, [startPosition, targetPosition])
 
 
   //Start and target nodes drag and drop
@@ -113,6 +106,9 @@ function Visualizer() {
 
   function handleStartMouseUp(newStartRow, newStartCol) {
     setStartPosition({row: newStartRow, col: newStartCol})
+    regenerateGrid(
+    {startEditActivated: false}
+    )
   }
 
 
@@ -126,6 +122,9 @@ function Visualizer() {
 
   function handleTargetMouseUp(newTargetRow, newTargetCol) {
     setTargetPosition({row: newTargetRow, col: newTargetCol})
+    regenerateGrid(
+      {targetEditActivated: false}
+    )
   }
 
 
