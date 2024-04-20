@@ -137,13 +137,10 @@ function Visualizer() {
 
   // Handle walls
 
-  function handleNodeMouseDown() {
-    regenerateGrid(
-      {wallEditActivated: true, 
-      wallToggler: toggleWall, 
-      mouseUpHandler: handleWallMouseUp
-    }
-    )
+  function handleNodeMouseDown(nodeRow, nodeCol) {
+    console.log(nodeRow, nodeCol)
+    toggleWall(nodeRow, nodeCol)
+
   }
 
   function toggleWall(nodeRow, nodeCol) {

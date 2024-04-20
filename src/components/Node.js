@@ -7,7 +7,6 @@ export default function Node(props) {
   
   const handleMouseOver = () => {
     if (props.wallEditActivated) {
-      console.log('check 1')
       props.wallToggler(props.row, props.col)
     } else {
       setIsHovered(true);
@@ -39,7 +38,7 @@ export default function Node(props) {
       ${props.isWall ? 'wall' : ''}
       ${isHovered && props.startEditActivated ? 'start-activated-cell' : ''}
       ${isHovered && props.targetEditActivated ? 'target-activated-cell' : ''}`}
-      onMouseDown={props.mouseDownHandler}
+      onMouseDown={() => props.mouseDownHandler(props.row, props.col)}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       onMouseUp={handleMouseUp}
