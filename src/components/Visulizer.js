@@ -113,9 +113,6 @@ function Visualizer() {
 
   function handleStartMouseUp(newStartRow, newStartCol) {
     setStartPosition({row: newStartRow, col: newStartCol})
-    regenerateGrid(
-    {startEditActivated: false}
-    )
   }
 
 
@@ -129,9 +126,6 @@ function Visualizer() {
 
   function handleTargetMouseUp(newTargetRow, newTargetCol) {
     setTargetPosition({row: newTargetRow, col: newTargetCol})
-    regenerateGrid(
-      {targetEditActivated: false}
-    )
   }
 
 
@@ -140,7 +134,6 @@ function Visualizer() {
   function handleNodeMouseDown(nodeRow, nodeCol) {
     console.log(nodeRow, nodeCol)
     toggleWall(nodeRow, nodeCol)
-
   }
 
   function toggleWall(nodeRow, nodeCol) {
