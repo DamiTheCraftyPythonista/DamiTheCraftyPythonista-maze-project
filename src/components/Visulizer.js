@@ -25,10 +25,13 @@ function initializeGrid () {
           col, 
           isStart: row === DEFAULT_START_ROW && col === DEFAULT_START_COL,
           isTarget: row === DEFAULT_TARGET_ROW && col === DEFAULT_TARGET_COL,
+          isWall: false, 
           startEditActivated: false,
           targetEditActivated: false, 
+          wallEditActivated: false,
           mouseDownHandler: () => {},
-          mouseUpHandler: () => {}, 
+          mouseUpHandler: () => {},
+          wallToggler: () => {}, 
         };
         rowArray.push(cell);
       }
@@ -54,6 +57,7 @@ function Visualizer() {
               if (node.row === startPosition.row && node.col === startPosition.col) {
                   return { 
                     ...node, 
+                    isWall: false, 
                     isStart: true, 
                     mouseDownHandler: handleStartMouseDown, 
                     ...inputObject, 
@@ -61,6 +65,7 @@ function Visualizer() {
               } else if (node.row === targetPosition.row && node.col === targetPosition.col) {
                   return { 
                     ...node, 
+                    isWall: false, 
                     isTarget: true, 
                     mouseDownHandler: handleTargetMouseDown, 
                     ...inputObject, 
@@ -70,7 +75,7 @@ function Visualizer() {
                   ...node, 
                   isStart: false, 
                   isTarget: false, 
-                  mouseDownHandler: () => {}, 
+                  mouseDownHandler: handleNodeMouseDown, 
                   ...inputObject,
                 })
               }
@@ -126,6 +131,38 @@ function Visualizer() {
     setTargetPosition({row: newTargetRow, col: newTargetCol})
     regenerateGrid(
       {targetEditActivated: false}
+    )
+  }
+
+
+  // Handle walls
+
+  function handleNodeMouseDown() {
+    regenerateGrid(
+      {wallEditActivated: true, 
+      wallToggler: toggleWall, 
+      mouseUpHandler: handleWallMouseUp
+    }
+    )
+  }
+
+  function toggleWall(nodeRow, nodeCol) {
+    const updatedGrid = [...grid]
+    const targetNode = updatedGrid[nodeRow][nodeCol]
+    targetNode.isWall = !targetNode.isWall
+    setGrid(updatedGrid)
+    regenerateGrid(
+      {wallEditActivated: true, 
+      wallToggler: toggleWall, 
+      mouseUpHandler: handleWallMouseUp}
+    )
+  }
+
+  function handleWallMouseUp() {
+    regenerateGrid(
+      {wallEditActivated: false, 
+      wallToggler: () => {}, 
+      mouseUpHandler: () => {}}
     )
   }
 

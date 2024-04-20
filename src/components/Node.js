@@ -4,9 +4,14 @@ import "../index.css";
 
 export default function Node(props) {
   const [isHovered, setIsHovered] = useState(false);
-
+  
   const handleMouseOver = () => {
-    setIsHovered(true);
+    if (props.wallEditActivated) {
+      console.log('check 1')
+      props.wallToggler(props.row, props.col)
+    } else {
+      setIsHovered(true);
+    }
   };
 
   const handleMouseOut = () => {
@@ -14,7 +19,9 @@ export default function Node(props) {
   };
 
   const handleMouseUp = () => {
-    if (props.startEditActivated && typeof props.mouseUpHandler === 'function') {
+    if (props.wallEditActivated && typeof props.mouseUpHandler === 'function') {
+      props.mouseUpHandler(props.row, props.col)
+    } else if (props.startEditActivated && typeof props.mouseUpHandler === 'function') {
       props.mouseUpHandler(props.row, props.col)
     } else if (props.targetEditActivated && typeof props.mouseUpHandler === 'function') {
       props.mouseUpHandler(props.row, props.col)
@@ -29,6 +36,7 @@ export default function Node(props) {
       className={`cell 
       ${props.isStart ? 'starting-cell' : ''}
       ${props.isTarget ? 'target-cell' : ''}
+      ${props.isWall ? 'wall' : ''}
       ${isHovered && props.startEditActivated ? 'start-activated-cell' : ''}
       ${isHovered && props.targetEditActivated ? 'target-activated-cell' : ''}`}
       onMouseDown={props.mouseDownHandler}

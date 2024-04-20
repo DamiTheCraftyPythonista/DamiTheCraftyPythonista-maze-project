@@ -60,6 +60,9 @@ border: 1px solid #000000;
   background-color: red;
 }
 
+.wall {
+  background-color: black;
+}
 
 /* Footer */
 
