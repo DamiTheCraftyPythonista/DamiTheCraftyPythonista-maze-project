@@ -49,7 +49,7 @@ function Visualizer() {
   const [targetPosition, setTargetPosition] = useState({row: DEFAULT_TARGET_ROW, col: DEFAULT_TARGET_COL}); 
 
 
-  //grid updating
+  //Grid updating
 
   function regenerateGrid(inputObject) {
     const updatedGrid = grid.map((row) =>

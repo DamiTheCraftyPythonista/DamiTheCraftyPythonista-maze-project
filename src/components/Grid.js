@@ -3,7 +3,7 @@ import "../index.css";
 import Node from "./Node"
 
 
-function Grid(props) {
+export default function Grid(props) {
 
   return (
     <div className="grid">
@@ -12,9 +12,9 @@ function Grid(props) {
           {rowArray.map((cell) => (
             <Node 
               key={`${cell.row}-${cell.col}`}
+              id={`${cell.row}-${cell.col}`}
               row={cell.row}
               col={cell.col}
-              // id={`${cell.row}-${cell.col}`}
               isStart={cell.isStart ? true : false}
               isTarget={cell.isTarget ? true : false}
               isWall={cell.isWall ? true : false}
@@ -31,6 +31,3 @@ function Grid(props) {
     </div>
   );
 };
-
-
-export default Grid;
