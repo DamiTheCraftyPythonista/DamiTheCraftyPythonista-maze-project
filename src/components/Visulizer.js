@@ -97,7 +97,7 @@ function Visualizer() {
   }, [startPosition, targetPosition])
 
 
-  //Visualizing Grid
+  //Visualization Grid
 
   function handleGridSwitch() {
     generateVisualizingGrid(grid)
@@ -199,7 +199,7 @@ function Visualizer() {
     <div>
       <Toolbar />
       <button onClick={handleGridSwitch}>Visualizing Grid</button>
-      <button onClick={handleVisualization}>Visualize</button>
+      {/* <button onClick={handleVisualization}>Visualize</button> */}
       {visualizingModeOn ?      
       <VisualizationGrid cells={visualizingGrid}/>
       :
