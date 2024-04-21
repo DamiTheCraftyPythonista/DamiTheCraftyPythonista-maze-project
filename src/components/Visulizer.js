@@ -97,7 +97,7 @@ function Visualizer() {
   }, [startPosition, targetPosition])
 
 
-  //Toggle Visualizing Grid
+  //Visualizing Grid
 
   function handleGridSwitch() {
     generateVisualizingGrid(grid)
@@ -106,13 +106,28 @@ function Visualizer() {
   }
 
   function generateVisualizingGrid(currentGrid) {
-    const updatedGrid = currentGrid.map((row) => {
+    const newGrid = currentGrid.map((row) => {
       return row.map(({ row, col, isWall, isStart, isTarget }) => {
         return { row, col, isWall, isStart, isTarget };
       });
     });
-    setVisualizingGrid(updatedGrid);
+    setVisualizingGrid(newGrid);
   }
+
+  function regenerateVisualizingGrid(inputObject) {
+    const updatedGrid = visualizingGrid.map((row) =>
+    row.map((node) => {
+        if (node.row === startPosition.row && node.col === startPosition.col) {
+          return ({
+            ...node, 
+            ...inputObject,
+          })
+        }
+    })
+    );
+  
+    setVisualizingGrid([...updatedGrid]);
+  };
 
 
   //Start and target nodes drag and drop
@@ -176,6 +191,12 @@ function Visualizer() {
     )
   }
 
+  //Visualizations
+
+  handleVisualization(VisualizationGrid) {
+
+  }
+
 
   //App
 
@@ -183,6 +204,7 @@ function Visualizer() {
     <div>
       <Toolbar />
       <button onClick={handleGridSwitch}>Visualizing Grid</button>
+      <button onClick={handleVisualization}>Visualize</button>
       {visualizingModeOn ?      
       <VisualizationGrid cells={visualizingGrid}/>
       :
