@@ -116,17 +116,12 @@ function Visualizer() {
 
   function regenerateVisualizingGrid(inputObject) {
     const updatedGrid = visualizingGrid.map((row) =>
-    row.map((node) => {
-        if (node.row === startPosition.row && node.col === startPosition.col) {
-          return ({
+    row.map((node) => ({
             ...node, 
             ...inputObject,
-          })
-        }
-    })
-    );
-  
-    setVisualizingGrid([...updatedGrid]);
+          }))
+        )
+        setVisualizingGrid([...updatedGrid]);
   };
 
 
@@ -193,9 +188,9 @@ function Visualizer() {
 
   //Visualizations
 
-  handleVisualization(VisualizationGrid) {
+  // handleVisualization(VisualizationGrid) {
 
-  }
+  // }
 
 
   //App
