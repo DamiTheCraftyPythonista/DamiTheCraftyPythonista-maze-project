@@ -47,6 +47,7 @@ function Visualizer() {
   const [grid, setGrid] = useState(() => initializeGrid());
   const [startPosition, setStartPosition] = useState({row: DEFAULT_START_ROW, col: DEFAULT_START_COL}); 
   const [targetPosition, setTargetPosition] = useState({row: DEFAULT_TARGET_ROW, col: DEFAULT_TARGET_COL}); 
+  const [visualizingModeOn, setVisualizingModeOn] = useState(false)
 
 
   //Grid updating
@@ -92,6 +93,13 @@ function Visualizer() {
       mouseUpHandler: () => {},
       })
   }, [startPosition, targetPosition])
+
+
+  //Toggle Visualizing Grid
+
+  function handleGridSwitch() {
+    setVisualizingModeOn(!visualizingModeOn)
+  }
 
 
   //Start and target nodes drag and drop
@@ -161,9 +169,11 @@ function Visualizer() {
   return (
     <div>
       <Toolbar />
-      <Grid 
-        cells={grid} 
-      />
+      <button onClick={handleGridSwitch}>Visualizing Grid</button>
+      {visualizingModeOn ?      
+      <Grid cells={grid} />
+      :
+      <p>Check</p>}
       <Footer />
     </div>
   );
