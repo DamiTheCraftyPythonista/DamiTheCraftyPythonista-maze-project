@@ -3,6 +3,7 @@ import Grid from "./Grid.js"
 import Footer from "./Footer.js"
 import Toolbar from "./Toolbar.js"
 import VisualizationGrid from "./VisualizingGrid.js"
+import dijkstra from "../Algorithms/Dijkstras.js"
 import "../index.css";
 
 
@@ -108,7 +109,7 @@ function Visualizer() {
   function generateVisualizingGrid(currentGrid) {
     const newGrid = currentGrid.map((row) => {
       return row.map(({ row, col, isWall, isStart, isTarget }) => {
-        return { row, col, isWall, isStart, isTarget };
+        return { row, col, isWall, isStart, isTarget, distance: Infinity, visited: false };
       });
     });
     setVisualizingGrid(newGrid);
@@ -188,9 +189,10 @@ function Visualizer() {
 
   //Visualizations
 
-  // handleVisualization(VisualizationGrid) {
-
-  // }
+  function visualizeDijkstra() {
+    dijkstra(visualizingGrid, startPosition, targetPosition)
+    //visualize it on visualizing grid
+  }
 
 
   //App
@@ -199,7 +201,7 @@ function Visualizer() {
     <div>
       <Toolbar />
       <button onClick={handleGridSwitch}>Visualizing Grid</button>
-      {/* <button onClick={handleVisualization}>Visualize</button> */}
+      <button onClick={visualizeDijkstra}>Visualize Dijkstra</button>
       {visualizingModeOn ?      
       <VisualizationGrid cells={visualizingGrid}/>
       :
