@@ -49,7 +49,7 @@ function Visualizer() {
   const [startPosition, setStartPosition] = useState({row: DEFAULT_START_ROW, col: DEFAULT_START_COL}); 
   const [targetPosition, setTargetPosition] = useState({row: DEFAULT_TARGET_ROW, col: DEFAULT_TARGET_COL}); 
   const [visualizingModeOn, setVisualizingModeOn] = useState(false)
-  const [visualizingGrid, setVisualizingGrid] = useState(() => initializeGrid())
+  const [visualizingGrid, setVisualizingGrid] = useState([])
 
 
   //Grid updating
@@ -102,6 +102,7 @@ function Visualizer() {
   function handleGridSwitch() {
     generateVisualizingGrid(grid)
     setVisualizingModeOn(!visualizingModeOn)
+    // setGrid(() => initializeGrid())
   }
 
   function generateVisualizingGrid(currentGrid) {
@@ -110,7 +111,6 @@ function Visualizer() {
         return { row, col, isWall, isStart, isTarget };
       });
     });
-    console.log(updatedGrid)
     setVisualizingGrid(updatedGrid);
   }
 
@@ -184,9 +184,9 @@ function Visualizer() {
       <Toolbar />
       <button onClick={handleGridSwitch}>Visualizing Grid</button>
       {visualizingModeOn ?      
-      <Grid cells={grid} />
-      :
       <VisualizationGrid cells={visualizingGrid}/>
+      :
+      <Grid cells={grid} />
       }
       <Footer />
     </div>
