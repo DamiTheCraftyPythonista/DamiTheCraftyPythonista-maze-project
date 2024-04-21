@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Grid from "./Grid.js"
 import Footer from "./Footer.js"
 import Toolbar from "./Toolbar.js"
+import VisualizationGrid from "./VisualizingGrid.js"
 import "../index.css";
 
 
@@ -48,6 +49,7 @@ function Visualizer() {
   const [startPosition, setStartPosition] = useState({row: DEFAULT_START_ROW, col: DEFAULT_START_COL}); 
   const [targetPosition, setTargetPosition] = useState({row: DEFAULT_TARGET_ROW, col: DEFAULT_TARGET_COL}); 
   const [visualizingModeOn, setVisualizingModeOn] = useState(false)
+  const [visualizingGrid, setVisualizingGrid] = useState(() => initializeGrid())
 
 
   //Grid updating
@@ -98,7 +100,18 @@ function Visualizer() {
   //Toggle Visualizing Grid
 
   function handleGridSwitch() {
+    generateVisualizingGrid(grid)
     setVisualizingModeOn(!visualizingModeOn)
+  }
+
+  function generateVisualizingGrid(currentGrid) {
+    const updatedGrid = currentGrid.map((row) => {
+      return row.map(({ row, col, isWall, isStart, isTarget }) => {
+        return { row, col, isWall, isStart, isTarget };
+      });
+    });
+    console.log(updatedGrid)
+    setVisualizingGrid(updatedGrid);
   }
 
 
@@ -173,7 +186,8 @@ function Visualizer() {
       {visualizingModeOn ?      
       <Grid cells={grid} />
       :
-      <p>Check</p>}
+      <VisualizationGrid cells={visualizingGrid}/>
+      }
       <Footer />
     </div>
   );
