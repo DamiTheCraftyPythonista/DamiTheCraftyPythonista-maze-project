@@ -163,7 +163,6 @@ function Visualizer() {
   // Handle walls
 
   function handleNodeMouseDown(nodeRow, nodeCol) {
-    console.log(nodeRow, nodeCol)
     toggleWall(nodeRow, nodeCol)
   }
 
@@ -190,6 +189,7 @@ function Visualizer() {
   //Visualizations
 
   function visualizeDijkstra() {
+    console.log(visualizingGrid)
     dijkstra(visualizingGrid, startPosition, targetPosition)
     //visualize it on visualizing grid
   }

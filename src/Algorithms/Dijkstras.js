@@ -1,7 +1,14 @@
 export default function dijkstra(grid, startNode, targetNode) {
     // this function should return the nodes sorted in the order they were visited which will then be utilized to visualize the pathfinding
 
-    //pseudocode of the function: 
+    const unvisitedNodes = grid
+    const nodesInVisitedOrder = []
+    const numRows = grid.length
+    const numCols = grid[0].length
+
+    
+
+
 
     //get nodes in default order
     //run a while loop where: 
