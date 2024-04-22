@@ -190,7 +190,8 @@ function Visualizer() {
 
   function visualizeDijkstra() {
     console.log(visualizingGrid)
-    dijkstra(visualizingGrid, startPosition, targetPosition)
+    const test = dijkstra(visualizingGrid, startPosition, targetPosition)
+    console.log(test)
     //visualize it on visualizing grid
   }
 

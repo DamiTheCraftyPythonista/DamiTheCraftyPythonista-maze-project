@@ -6,13 +6,22 @@ export default function dijkstra(grid, startNode, targetNode) {
     const numRows = grid.length
     const numCols = grid[0].length
 
-    
+
+    unvisitedNodes[startNode.row][startNode.col].distance = 0
+
+    nodesInVisitedOrder.push(unvisitedNodes[startNode.row][startNode.col])
+
+    while (unvisitedNodes.length > 0) {
+        
+
+    }
 
 
 
-    //get nodes in default order
+
+
     //run a while loop where: 
-        //take hold of nodes which have 1) same row, +- 1 col 2) same col, +- 1 row
+        //take hold of nodes which have 1) same row, +- 1 col 2) same col, +- 1 row and are unvisited yet
 
         //with each node: 
             //handle if index out of range
@@ -31,5 +40,15 @@ export default function dijkstra(grid, startNode, targetNode) {
     //return the array visitedNodesInOrder
 }
 
-    //grid has to provide: row, col, isWall, distance, visited
-    //startNode and targetNode will be provided from the states form Visualizer component
+
+function getUnvisitedNeighbors (node) {
+    const { row, col } = node;
+    const neighbors = [];
+
+    if (col < numCols - 1) neighbors.push(grid[row][col + 1]);
+    if (row < numRows - 1) neighbors.push(grid[row + 1][col]);
+    if (col > 0) neighbors.push(grid[row][col - 1]); 
+    if (row > 0) neighbors.push(grid[row - 1][col]);
+
+    return neighbors.filter((neighbor) => !neighbor.visited && !neighbor.isWall);
+};
