@@ -202,13 +202,13 @@ function Visualizer() {
 
   //Visualizations
 
-  // function visualizeDijkstra() {
-  //   const dijkstrasPath = dijkstra(visualizingGrid, startPosition, targetPosition)
-  //   console.log(dijkstrasPath)
-  //   //visualize it on visualizing grid
-  //   generateVisualizingGrid(grid)
-  //   dijkstrasPath.map((node) => visualizeStepInPath(node.row, node.col))
-  //   }
+  function visualizeDijkstra() {
+    const dijkstrasPath = dijkstra(visualizingGrid, startPosition, targetPosition)
+    console.log(dijkstrasPath)
+    //visualize it on visualizing grid
+    generateVisualizingGrid(grid)
+    dijkstrasPath.map((node) => visualizeStepInPath(node.row, node.col))
+    }
 
 
   //App
@@ -217,7 +217,7 @@ function Visualizer() {
     <div>
       <Toolbar />
       <button onClick={handleGridSwitch}>Toggle Grid</button>
-      {/* <button onClick={visualizeDijkstra}>Visualize Dijkstra</button> */}
+      <button onClick={visualizeDijkstra}>Visualize Dijkstra</button>
       <button onClick={() => console.log(grid)}>log VisualizingGrid</button>
 
       {visualizingModeOn ?      
