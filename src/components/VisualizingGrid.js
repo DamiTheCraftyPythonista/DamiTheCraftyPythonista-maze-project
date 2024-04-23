@@ -17,6 +17,7 @@ export default function VisualizationGrid(props) {
                 isStart={cell.isStart ? true : false}
                 isTarget={cell.isTarget ? true : false}
                 isWall={cell.isWall ? true : false}
+                isVisited={cell.visited ? true : false}
             />
           ))}
         </div>

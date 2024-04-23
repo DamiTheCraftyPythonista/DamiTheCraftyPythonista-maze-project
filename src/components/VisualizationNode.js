@@ -10,7 +10,8 @@ export default function VisualizationNode(props) {
     className={`cell 
     ${props.isStart ? 'starting-cell' : ''}
     ${props.isTarget ? 'target-cell' : ''}
-    ${props.isWall ? 'wall' : ''}    >
+    ${props.isWall ? 'wall' : ''}
+    ${props.isVisited ? 'visited' : ''}
     `}
     >
     </div>

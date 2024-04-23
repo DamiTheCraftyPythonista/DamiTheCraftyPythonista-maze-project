@@ -107,6 +107,12 @@ function Visualizer() {
   }
 
   function generateVisualizingGrid(currentGrid) {
+
+    if (!currentGrid || currentGrid.length === 0) {
+      console.error("Invalid or empty grid provided.");
+      return;
+    }
+
     const newGrid = currentGrid.map((row) => {
       return row.map(({ row, col, isWall, isStart, isTarget }) => {
         return { row, col, isWall, isStart, isTarget, distance: Infinity, visited: false };
@@ -115,14 +121,22 @@ function Visualizer() {
     setVisualizingGrid(newGrid);
   }
 
-  function regenerateVisualizingGrid(inputObject) {
+  function visualizeStepInPath(currentRow, currentCol) {
     const updatedGrid = visualizingGrid.map((row) =>
-    row.map((node) => ({
+    row.map((node) => {
+        if (node.row === currentRow && node.col === currentCol) {
+          return ({
             ...node, 
-            ...inputObject,
-          }))
+            visited: true
+          })
+        } else {
+          return ({
+          ...node, 
+          })
+        }}
         )
-        setVisualizingGrid([...updatedGrid]);
+      )
+      setVisualizingGrid([...updatedGrid])
   };
 
 
@@ -188,11 +202,13 @@ function Visualizer() {
 
   //Visualizations
 
-  function visualizeDijkstra() {
-    const test = dijkstra(visualizingGrid, startPosition, targetPosition)
-    console.log(test)
-    //visualize it on visualizing grid
-  }
+  // function visualizeDijkstra() {
+  //   const dijkstrasPath = dijkstra(visualizingGrid, startPosition, targetPosition)
+  //   console.log(dijkstrasPath)
+  //   //visualize it on visualizing grid
+  //   generateVisualizingGrid(grid)
+  //   dijkstrasPath.map((node) => visualizeStepInPath(node.row, node.col))
+  //   }
 
 
   //App
@@ -200,8 +216,8 @@ function Visualizer() {
   return (
     <div>
       <Toolbar />
-      <button onClick={handleGridSwitch}>Visualizing Grid</button>
-      <button onClick={visualizeDijkstra}>Visualize Dijkstra</button>
+      <button onClick={handleGridSwitch}>Toggle Grid</button>
+      {/* <button onClick={visualizeDijkstra}>Visualize Dijkstra</button> */}
       <button onClick={() => console.log(grid)}>log VisualizingGrid</button>
 
       {visualizingModeOn ?      

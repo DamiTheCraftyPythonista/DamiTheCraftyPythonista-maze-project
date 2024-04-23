@@ -64,6 +64,11 @@ border: 1px solid #000000;
   background-color: black;
 }
 
+.visited {
+  background-color: purple;
+}
+
+
 /* Footer */
 
 .footer {
