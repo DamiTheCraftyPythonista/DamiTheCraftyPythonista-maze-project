@@ -100,6 +100,7 @@ function Visualizer() {
   //Visualization Grid
 
   function handleGridSwitch() {
+    console.log(grid)
     generateVisualizingGrid(grid)
     setVisualizingModeOn(!visualizingModeOn)
     // setGrid(() => initializeGrid())
@@ -113,30 +114,39 @@ function Visualizer() {
     }
 
     const newGrid = currentGrid.map((row) => {
-      return row.map(({ row, col, isWall, isStart, isTarget }) => {
-        return { row, col, isWall, isStart, isTarget, distance: Infinity, visited: false };
-      });
+      const strippedRow = row.map(({ row, col, isWall, isStart, isTarget }) => (
+        { row, col, isWall, isStart, isTarget }
+      ));
+
+      const newNodes = strippedRow.map((strippedNode) => ({
+        ...strippedNode,
+        distance: Infinity,
+        visited: false
+      }));
+  
+      return newNodes;
     });
+    
     setVisualizingGrid(newGrid);
   }
 
-  function visualizeStepInPath(currentRow, currentCol) {
-    const updatedGrid = visualizingGrid.map((row) =>
-    row.map((node) => {
-        if (node.row === currentRow && node.col === currentCol) {
-          return ({
-            ...node, 
-            visited: true
-          })
-        } else {
-          return ({
-          ...node, 
-          })
-        }}
-        )
-      )
-      setVisualizingGrid([...updatedGrid])
-  };
+  // function visualizeStepInPath(currentRow, currentCol) {
+  //   const updatedGrid = visualizingGrid.map((row) =>
+  //   row.map((node) => {
+  //       if (node.row === currentRow && node.col === currentCol) {
+  //         return ({
+  //           ...node, 
+  //           visited: true
+  //         })
+  //       } else {
+  //         return ({
+  //         ...node, 
+  //         })
+  //       }}
+  //       )
+  //     )
+  //     setVisualizingGrid([...updatedGrid])
+  // };
 
 
   //Start and target nodes drag and drop
@@ -201,16 +211,16 @@ function Visualizer() {
 
   //Visualizations
 
-  function visualizeDijkstra() {
-    const dijkstrasPath = dijkstra(visualizingGrid, startPosition, targetPosition)
-    generateVisualizingGrid(grid)
+  // function visualizeDijkstra() {
+  //   const dijkstrasPath = dijkstra(visualizingGrid, startPosition, targetPosition)
+  //   generateVisualizingGrid(grid)
 
-    dijkstrasPath.forEach((node, index) => {
-      // setTimeout(() => {
-        visualizeStepInPath(node.row, node.col)
-      // }, index * 250); 
-    });
-  }
+  //   dijkstrasPath.forEach((node, index) => {
+  //     // setTimeout(() => {
+  //       visualizeStepInPath(node.row, node.col)
+  //     // }, index * 250); 
+  //   });
+  // }
 
 
   //App
@@ -219,8 +229,9 @@ function Visualizer() {
     <div>
       <Toolbar />
       <button onClick={handleGridSwitch}>Toggle Grid</button>
+      {/* <button onClick={handleGridSwitch}>Toggle Grid</button>
       <button onClick={visualizeDijkstra}>Visualize Dijkstra</button>
-      <button onClick={() => console.log(grid)}>log VisualizingGrid</button>
+      <button onClick={() => console.log(grid)}>log VisualizingGrid</button> */}
       {/* <button onClick={() => setVisualizingGrid(() => generateVisualizingGrid(grid))}>Clean visGrid</button> */}
 
       {visualizingModeOn ?      
