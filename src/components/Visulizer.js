@@ -15,7 +15,6 @@ const DEFAULT_TARGET_ROW = 10;
 const DEFAULT_TARGET_COL = 37; 
 
 
-
 function initializeGrid () { 
   const cells = [];
 
@@ -204,11 +203,14 @@ function Visualizer() {
 
   function visualizeDijkstra() {
     const dijkstrasPath = dijkstra(visualizingGrid, startPosition, targetPosition)
-    console.log(dijkstrasPath)
-    //visualize it on visualizing grid
     generateVisualizingGrid(grid)
-    dijkstrasPath.map((node) => visualizeStepInPath(node.row, node.col))
-    }
+
+    dijkstrasPath.forEach((node, index) => {
+      // setTimeout(() => {
+        visualizeStepInPath(node.row, node.col)
+      // }, index * 250); 
+    });
+  }
 
 
   //App
@@ -219,6 +221,7 @@ function Visualizer() {
       <button onClick={handleGridSwitch}>Toggle Grid</button>
       <button onClick={visualizeDijkstra}>Visualize Dijkstra</button>
       <button onClick={() => console.log(grid)}>log VisualizingGrid</button>
+      {/* <button onClick={() => setVisualizingGrid(() => generateVisualizingGrid(grid))}>Clean visGrid</button> */}
 
       {visualizingModeOn ?      
       <VisualizationGrid cells={visualizingGrid}/>
