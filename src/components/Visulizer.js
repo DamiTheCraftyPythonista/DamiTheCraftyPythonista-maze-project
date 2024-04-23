@@ -189,7 +189,6 @@ function Visualizer() {
   //Visualizations
 
   function visualizeDijkstra() {
-    console.log(visualizingGrid)
     const test = dijkstra(visualizingGrid, startPosition, targetPosition)
     console.log(test)
     //visualize it on visualizing grid
@@ -203,6 +202,8 @@ function Visualizer() {
       <Toolbar />
       <button onClick={handleGridSwitch}>Visualizing Grid</button>
       <button onClick={visualizeDijkstra}>Visualize Dijkstra</button>
+      <button onClick={() => console.log(grid)}>log VisualizingGrid</button>
+
       {visualizingModeOn ?      
       <VisualizationGrid cells={visualizingGrid}/>
       :
